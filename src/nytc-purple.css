@@ -27,6 +27,9 @@ body.mindloop-background {
 .mindloop-background .site-footer .brand>span,.mindloop-background .site-footer>p,.mindloop-background .site-footer>a:last-child{color:var(--nytc-soft)}
 .mindloop-background .back-link{background:#d8c9ed;color:#34204d;border-color:#8060b1}
 .mindloop-background .creator-line{color:#4b3369;max-width:none;padding-inline:max(28px,calc((100vw - 1360px)/2))}
+.mindloop-background .creator-credit{display:block;color:#34204d;font-size:clamp(13px,1.05vw,15px);font-weight:700;letter-spacing:.01em;line-height:1.6;padding:10px max(32px,calc((100vw - 1260px)/2 + 36px)) 16px}
+@media(max-width:1000px){.mindloop-background .creator-credit{padding-inline:28px}}
+@media(max-width:600px){.mindloop-background .creator-credit{padding:8px 20px 14px}}
 .mindloop-background .site-header .brand-wordmark{min-width:0;flex-shrink:1}
 .mindloop-background .site-header .brand-wordmark img{display:block;width:280px;height:auto;max-width:100%;max-height:78px;aspect-ratio:720/196;object-fit:contain;border-radius:0}
 .mindloop-background .space-hero{background:linear-gradient(180deg,#e3d7f4 0%,#c7b2e3 30%,#8b69b9 65%,#7653a8 100%)}
