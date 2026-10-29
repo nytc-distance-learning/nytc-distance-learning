@@ -1,0 +1,90 @@
+/* The guides move over the viewport; their course names and links keep their place. */
+body.robots-roaming .crew-robot { visibility: hidden; }
+
+.robot-roam-layer {
+  --robot-roam-size: 96px;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  overflow: hidden;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px));
+  pointer-events: none;
+  contain: layout paint style;
+}
+
+.robot-roam-layer * { pointer-events: none !important; }
+
+/* Separate from the decorative overlay so the existing motion control stays reachable. */
+.roam-motion-control {
+  position: fixed;
+  right: max(12px, env(safe-area-inset-right, 0px));
+  bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  z-index: 40;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: 140px;
+  padding: 10px 16px;
+  border: 1px solid #c8ace6;
+  border-radius: 999px;
+  background: #ead9ff;
+  color: #34204d;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.3;
+  font-weight: 650;
+  cursor: pointer;
+  animation: none;
+  transition: none;
+}
+body.robots-roaming > .roam-motion-control { display: inline-flex; }
+.roam-motion-control:focus-visible { outline: 3px solid #54308c; outline-offset: 3px; }
+
+.robot-roam-mover {
+  position: absolute;
+  inset: 0 auto auto 0;
+  display: block;
+  width: var(--robot-roam-render-size, var(--robot-roam-size));
+  height: var(--robot-roam-render-size, var(--robot-roam-size));
+  opacity: .87;
+  will-change: transform;
+}
+
+.robot-roam-facing, .robot-roam-art { display: block; width: 100%; height: 100%; }
+.robot-roam-facing { transform-origin: 50% 65%; }
+.robot-roam-art {
+  background: url('/orbis/robots.webp') 0% 50% / 300% 100% no-repeat;
+  transform-origin: 50% 75%;
+}
+.robot-roam-style-classic .robot-roam-art { background-image: url('/orbis/robots.webp'); }
+.robot-roam-style-pixel .robot-roam-art { background-image: url('/orbis/robots-pixel.webp'); }
+.robot-roam-style-orbit .robot-roam-art { background-image: url('/orbis/robots-orbit.webp'); }
+.robot-roam-arduino .robot-roam-art { background-position: 50% 50%; }
+.robot-roam-games .robot-roam-art { background-position: 100% 50%; }
+.is-walking .robot-roam-art { animation: robot-roam-step .44s linear infinite; }
+.robot-roam-arduino .robot-roam-art { animation-delay: -.14s; }
+.robot-roam-games .robot-roam-art { animation-delay: -.28s; }
+
+@keyframes robot-roam-step {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg); }
+  25% { transform: translate3d(0, -3px, 0) rotate(0deg); }
+  50% { transform: translate3d(0, 0, 0) rotate(2deg); }
+  75% { transform: translate3d(0, -3px, 0) rotate(0deg); }
+}
+
+.robot-roam-layer.is-paused .robot-roam-art,
+body.orbis-motion-paused .robot-roam-art,
+body.orbis-document-hidden .robot-roam-art { animation-play-state: paused; }
+
+@media (max-width: 600px) {
+  .robot-roam-layer { --robot-roam-size: 60px; }
+  .robot-roam-mover { opacity: .8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .robot-roam-layer { display: none; }
+  .roam-motion-control { display: none !important; }
+  body.robots-roaming .crew-robot { visibility: visible; }
+  .robot-roam-art { animation: none; }
+}

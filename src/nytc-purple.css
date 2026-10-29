@@ -1,0 +1,121 @@
+/* NYTC's purple is the page canvas; lavender marks surfaces and actions. */
+body.mindloop-background {
+  --space:#54308c;
+  --paper:#54308c;
+  --starlight:#fffaff;
+  --space-muted:#f0e7fb;
+  --ink:#fffaff;
+  --muted:#f0e7fb;
+  --line:#c8ace666;
+  --nytc-surface:#624095;
+  --nytc-panel:#654397;
+  --nytc-panel-deep:#492777;
+  --nytc-text:#fffaff;
+  --nytc-soft:#f0e7fb;
+  --nytc-stroke:#c8ace6;
+  color:var(--nytc-text);
+  background:var(--space);
+  color-scheme:dark;
+  scrollbar-color:#c8ace6 #54308c;
+  padding-bottom:max(124px,calc(112px + env(safe-area-inset-bottom,0px)));
+}
+.mindloop-background ::selection{color:#34204d;background:#ead9ff}
+.mindloop-background main{background:transparent}
+.mindloop-background :is(.site-header,.creator-line){background:#e3d7f4;color:#34204d;border-color:transparent}
+.mindloop-background .site-header nav a,.mindloop-background .site-header .brand>span{color:#34204d}
+.mindloop-background .site-footer{background:#54308c;border-color:transparent}
+.mindloop-background .site-footer .brand>span,.mindloop-background .site-footer>p,.mindloop-background .site-footer>a:last-child{color:var(--nytc-soft)}
+.mindloop-background .back-link{background:#d8c9ed;color:#34204d;border-color:#8060b1}
+.mindloop-background .creator-line{color:#4b3369;max-width:none;padding-inline:max(28px,calc((100vw - 1360px)/2))}
+.mindloop-background .site-header .brand-wordmark{min-width:0;flex-shrink:1}
+.mindloop-background .site-header .brand-wordmark img{display:block;width:280px;height:auto;max-width:100%;max-height:78px;aspect-ratio:720/196;object-fit:contain;border-radius:0}
+.mindloop-background .space-hero{background:linear-gradient(180deg,#e3d7f4 0%,#c7b2e3 30%,#8b69b9 65%,#7653a8 100%)}
+.mindloop-background .mindloop-scene{background:#d8c9ed}
+.mindloop-background .mindloop-scene{mask-image:linear-gradient(180deg,transparent 0%,#000 8%,#000 84%,transparent 100%)}
+.mindloop-background .mindloop-scene::before{content:"";position:absolute;inset:0;background:url('/mindloop/hero-poster.webp') center bottom/cover no-repeat}
+.mindloop-background .mindloop-video{object-position:center bottom}
+.mindloop-background .mindloop-scene.has-video-frame .mindloop-video{opacity:1}
+.mindloop-background .space-shade{background:linear-gradient(90deg,#e3d7f4f5 0%,#d8c9eded 32%,#c8b4e24d 50%,transparent 68%)}
+.mindloop-background .crew-member{background:#ead9ffdf;color:#34204d}
+.mindloop-background .crew-member strong,.mindloop-background .crew-enter{color:#34204d}
+.mindloop-background .space-coordinate{text-shadow:0 1px 8px #34204d}
+.mindloop-background :is(.overline,.hero-description,.hero-detail,.hero-facts,.ambient-toggle,.crew-enter,.space-coordinate){color:var(--nytc-soft)}
+.mindloop-background .orbis-intro h1{color:#34204d}
+.mindloop-background .orbis-intro .you{color:#65409e}
+.mindloop-background .orbis-intro :is(.overline,.hero-description,.hero-detail,.hero-facts,.ambient-toggle,.text-button){color:#34204d}
+.mindloop-background .orbis-intro .hero-facts svg{color:#54308c}
+.mindloop-background .orbis-intro .little-orbit{border-color:#54308c}
+.mindloop-background .orbis-intro .little-orbit::after{background:#54308c}
+.mindloop-background .orbis-intro .play-dot{border-color:#65409e}
+.mindloop-background .orbis-intro .play-dot svg{stroke:#54308c;fill:#54308c}
+.mindloop-background :is(.crew-member strong,.lab-section h2,.card-content h3,.course-clarity strong){color:var(--nytc-text)}
+.mindloop-background .course-card{background:var(--nytc-panel);border-color:#bda0dd;box-shadow:0 14px 35px -18px #34204d88}
+.mindloop-background .course-card:focus-within{border-color:#fffaff;box-shadow:0 0 0 2px #ead9ff66}
+.mindloop-background :is(.card-meta,.card-meta>span:first-child,.card-content>p,.course-features,.card-preview,.section-heading>p){color:var(--nytc-soft)}
+.mindloop-background .card-meta>span:last-child{background:#54308c;color:#fffaff;border-color:#bda0dd}
+.mindloop-background .course-features svg{stroke:#ead9ff;color:#ead9ff}
+.mindloop-background .card-link{background:#54308c;color:#fffaff;border-color:#c8ace6}
+.mindloop-background .card-link:hover,.mindloop-background .card-preview:hover{color:#34204d;background:#ead9ff}
+.mindloop-background .course-clarity{background:#54308c;border-color:#bda0dd;color:var(--nytc-soft)}
+.mindloop-background :is(.play-section,.how-section,.grownups){color:var(--nytc-text);background:transparent;border-color:#bda0dd66;border-radius:0}
+.mindloop-background .play-section{background:linear-gradient(180deg,#7653a8,#684395)}
+.mindloop-background .how-section{background:linear-gradient(180deg,#684395,#5f3a90)}
+.mindloop-background .grownups{background:linear-gradient(180deg,#5f3a90,#59358d);border:0;margin-inline:0}
+.mindloop-background :is(.play-intro p,.learning-loop>div p,.teacher-intro p,.grownup-notes p){color:var(--nytc-soft)}
+.mindloop-background :is(.play-intro h2,.learning-loop>div h3,.teacher-intro h2,.grownup-notes strong){color:var(--nytc-text)}
+.mindloop-background .primary{color:#34204d;background:#ead9ff;box-shadow:0 4px 12px -5px #34204d88}
+.mindloop-background .primary:hover{color:#34204d;background:#fffaff}
+.mindloop-background .orbis-intro .primary{background:#54308c;color:#fffaff}
+.mindloop-background .orbis-intro .primary:hover{background:#65409e;color:#fffaff}
+.mindloop-background .playground{background:var(--nytc-panel-deep);border-color:#bda0dd;box-shadow:0 18px 48px -24px #34204d99}
+.mindloop-background .playground::before{background:none}
+.mindloop-background .canvas-shell{background:#c9b6e1}
+.mindloop-background :is(.scene-label,.preview-caption,.scene-bottom p,.scene-note){color:var(--nytc-soft)}
+.mindloop-background .scene-label>span{background:#ead9ff}
+.mindloop-background .scene-bottom{border-color:#bda0dd77}
+.mindloop-background :is(.quiet-icon,.quiet-button){color:#fffaff;background:#624095;border-color:#c8ace6}
+.mindloop-background :is(.quiet-icon:hover,.quiet-button:hover){color:#34204d;background:#ead9ff}
+.mindloop-background .scene-tabs button{color:#f0e7fb;background:transparent}
+.mindloop-background .scene-tabs button[aria-pressed=true]{color:#34204d;background:#ead9ff;border-color:#ead9ff}
+.mindloop-background .scene-action{color:#34204d;background:#ead9ff;box-shadow:none}
+.mindloop-background .scene-action:hover{background:#fffaff}
+.mindloop-background .scene-progress span{background:#654397;border-color:#d8c3f0}
+.mindloop-background .scene-progress span.done{background:#fffaff;border-color:#fffaff}
+.mindloop-background :is(.drag-hint,.world-logo){color:#34204d;opacity:1;background:#ead9fff0;border-radius:5px;padding:3px 5px}
+.mindloop-background .scene-fallback{color:#34204d}
+.mindloop-background .loop-icon{background:#ead9ff;border-color:#ead9ff}
+.mindloop-background .loop-icon svg{stroke:#54308c}
+.mindloop-background .loop-icon b{background:#54308c;border-color:#ead9ff}
+.mindloop-background .learning-loop>div:not(:last-child)::after{border-color:#bda0dd}
+.mindloop-background .teacher-icon{background:#ead9ff}
+.mindloop-background .teacher-icon svg{stroke:#54308c}
+.mindloop-background .guide-links a{color:#fffaff;background:#654397;border-color:#c8ace6}
+.mindloop-background .guide-links a:hover{color:#34204d;background:#ead9ff}
+.mindloop-background .grownup-notes{border-color:#bda0dd77}
+.mindloop-background .closing-banner{color:#fffaff;background:linear-gradient(180deg,#59358d,#54308c);border-color:transparent}
+.mindloop-background :is(.closing-banner h2,.closing-banner .overline,.closing-doodle){color:#fffaff}
+.mindloop-background :is(a,button,canvas):focus-visible{outline:3px solid #f1e6ff;outline-offset:5px}
+.mindloop-background .orbis-heading-art :is(.crew-member strong,.crew-enter){color:#34204d}
+.mindloop-background .orbis-intro .space-coordinate{color:#34204d;background:#ead9fff0;padding:4px 10px;border-radius:5px;text-shadow:none}
+.robot-chooser-opener{display:inline-flex;align-items:center;min-height:44px;margin:15px 18px 0 0;padding:10px 15px;border:1px solid #8060b1;border-radius:9px;background:#ead9ff;color:#34204d;font:inherit;font-size:13px;font-weight:700;line-height:1.4;cursor:pointer}
+.robot-chooser-opener:hover{background:#fffaff}
+.robot-chooser{color-scheme:light}
+.mindloop-background.robots-roaming .crew-float{width:0;height:0;overflow:hidden;visibility:hidden;animation:none}
+.mindloop-background.robots-roaming .hero-crew{gap:10px}
+.mindloop-background.robots-roaming .crew-member{min-height:96px;justify-content:center;padding:12px 8px;border-radius:14px;background:#ead9ffdb}
+.mindloop-background .lab-section .section-heading :is(h2,.overline),.mindloop-background .lab-section .section-heading>p{color:#34204d}
+.mindloop-background :is(.site-header,.orbis-intro) :is(a,button):focus-visible{outline-color:#54308c}
+.mindloop-background :is(.robot-music-toggle,.roam-motion-control):focus-visible{outline-color:#54308c}
+.robot-music-control .robot-music-volume:not([hidden]){display:none}
+.robot-music-control:focus-within .robot-music-volume:not([hidden]){display:flex}
+@media(hover:hover) and (pointer:fine){.robot-music-control:hover .robot-music-volume:not([hidden]){display:flex}}
+.mindloop-background .space-shade{z-index:2}
+@media(max-width:600px){
+ .mindloop-background .site-header .brand-wordmark img{width:clamp(154px,calc(100vw - 166px),220px);max-height:72px}
+ .mindloop-background .mindloop-scene::before{background-position:58% bottom}
+ .mindloop-background .space-shade{background:linear-gradient(180deg,#d8c9edf7 0%,#d8c9edf2 58%,#d8c9ed33 78%,transparent 90%)}
+}
+@media(max-width:420px){
+ .mindloop-background .site-header .back-link{display:none}
+ .mindloop-background .site-header .brand-wordmark img{width:min(280px,calc(100vw - 40px));max-height:76px}
+}

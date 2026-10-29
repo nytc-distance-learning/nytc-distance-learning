@@ -1,0 +1,36 @@
+import {initOrbisMotion} from './orbis.js';
+import {initMindloopVideo} from './mindloop-video.js';
+import {initRoamingRobots} from './roaming-robots.js';
+import './roaming-robots.css';
+import {initRoboticMusic} from './robotic-music.js';
+import './robotic-music.css';
+import {initRobotChoices} from './robot-choices.js';
+import './robot-choices.css';
+import {createIcons,ArrowUpRight,ArrowRight,Pause,Play,Move,RotateCcw,Scan,Sparkles,Flag,Repeat2,Zap,FlagTriangleRight,Blocks,Video,NotebookPen,Cpu,CodeXml,Gamepad2,Map as MapIcon,ClipboardCheck,Lightbulb,CircleCheck,Languages,MousePointerClick,MessagesSquare,BookOpenCheck} from 'lucide';
+const iconSet={ArrowUpRight,ArrowRight,Pause,Play,Move,RotateCcw,Scan,Sparkles,Flag,Repeat2,Zap,FlagTriangleRight,Blocks,Video,NotebookPen,Cpu,CodeXml,Gamepad2,Map:MapIcon,ClipboardCheck,Lightbulb,CircleCheck,Languages,MousePointerClick,MessagesSquare,BookOpenCheck};
+function icons(){createIcons({icons:iconSet,attrs:{'stroke-width':1.7,'aria-hidden':'true'}})}icons();
+const canvas=document.querySelector('#hub-canvas'),action=document.querySelector('#scene-action'),reset=document.querySelector('#scene-reset'),status=document.querySelector('#scene-status'),progress=document.querySelector('#scene-progress'),motionButton=document.querySelector('#motion-toggle'),fallback=document.querySelector('#scene-fallback');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)');let world,mode='scratch',motion=!reduce.matches,topView=false,loading;
+const copy={scratch:{caption:'CODE A PATH',status:'Help Pip collect three idea sparks.',action:'Take a step',note:'A mini preview. Open Scratch Coding for the full lesson.'},arduino:{caption:'MAKE A LITTLE SPARK',status:'Turn on the light. See what changes.',action:'Light it up',note:'A concept animation, not an electrical circuit simulation.'},games:{caption:'A SPECIAL DELIVERY',status:'Help the rover pick up and deliver a parcel.',action:'Start the mission',note:'A mini preview. Open Scratch Games for nine robot missions.'}};
+function showProgress(state){action.disabled=!!state.busy;const c=copy[state.mode]||copy.scratch;status.textContent=state.status||c.status;document.querySelector('#preview-caption').textContent=c.caption;document.querySelector('#scene-note').textContent=c.note;action.innerHTML=`${state.actionLabel||c.action} <i data-lucide="arrow-right"></i>`;progress.replaceChildren(...Array.from({length:state.total||3},(_,i)=>{const dot=document.createElement('span');dot.classList.toggle('done',i<state.score);return dot}));progress.setAttribute('aria-label',`${state.score} of ${state.total} preview steps complete`);icons()}
+function updateMotion(){motionButton.setAttribute('aria-pressed',String(!motion));motionButton.setAttribute('aria-label',motion?'Pause playground motion':'Play playground motion');motionButton.title=motion?'Pause motion':'Play motion';motionButton.innerHTML=`<i data-lucide="${motion?'pause':'play'}"></i>`;world?.setMotion(motion);icons()}
+async function loadWorld(){if(world)return world;if(loading)return loading;loading=(async()=>{try{const {createHubWorld}=await import('./world.js');world=createHubWorld({canvas,onProgress:showProgress,onReady:(result)=>{if(result?.available===false){fallback.innerHTML='<div class="fallback-robot" aria-hidden="true"><span></span><span></span></div><p>3D graphics are unavailable. Try the preview buttons, or open a course below.</p>'}else fallback.classList.add('hidden')}});world.setMotion(motion);world.setMode(mode);return world}catch(error){console.warn('3D playground unavailable:',error);fallback.innerHTML='<div class="fallback-robot" aria-hidden="true"><span></span><span></span></div><p>This device can still open every course below.</p>';status.textContent='Your browser could not open the 3D preview. Choose a course below.';action.disabled=true;reset.disabled=true;document.querySelector('#view-toggle').disabled=true;motionButton.disabled=true;return null}})();return loading}
+function chooseMode(next){mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));const c=copy[mode];showProgress({mode,score:0,total:mode==='games'?4:mode==='arduino'?1:3,status:c.status,actionLabel:c.action});world?.setMode(mode)}
+document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>chooseMode(button.dataset.mode)));
+action.addEventListener('click',async()=>{const w=await loadWorld();w?.action()});reset.addEventListener('click',()=>world?.reset());motionButton.addEventListener('click',()=>{motion=!motion;updateMotion()});document.querySelector('#view-toggle').addEventListener('click',()=>{topView=!topView;world?.setView(topView?'top':'perspective');document.querySelector('#view-toggle').setAttribute('aria-label',topView?'Switch to perspective view':'Switch to top view')});
+canvas.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();world?.action()}else if(event.key.toLowerCase()==='r'){event.preventDefault();world?.reset()}});
+function focusPlayground(){document.querySelector('#playground').scrollIntoView({behavior:reduce.matches?'instant':'smooth',block:'center'});canvas.focus({preventScroll:true})}
+document.querySelector('#try-playground').addEventListener('click',()=>{loadWorld();focusPlayground()});document.querySelectorAll('[data-preview]').forEach(button=>button.addEventListener('click',()=>{chooseMode(button.dataset.preview);loadWorld();focusPlayground()}));
+reduce.addEventListener('change',event=>{motion=!event.matches;updateMotion()});updateMotion();
+const sceneObserver=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){loadWorld();sceneObserver.disconnect()}},{rootMargin:'180px'});sceneObserver.observe(canvas);
+const revealed=document.querySelectorAll('.section-heading,.course-card,.learning-loop>div,.teacher-intro,.guide-links,.closing-banner');document.body.classList.add('js-ready');const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.08});revealed.forEach((element,i)=>{element.classList.add('reveal');element.style.setProperty('--reveal-delay',`${element.classList.contains('course-card')?(i%3)*60:0}ms`);revealObserver.observe(element)});
+
+// Keep the preview alive when Back restores this page from the browser cache.
+window.addEventListener('pagehide',event=>{if(!event.persisted)world?.dispose()});
+
+const stopRobotChoices=initRobotChoices();
+const stopOrbisMotion=initOrbisMotion();
+const stopMindloopVideo=initMindloopVideo();
+const stopRoamingRobots=initRoamingRobots();
+const stopRoboticMusic=initRoboticMusic();
+window.addEventListener('pagehide',event=>{if(!event.persisted){stopRoboticMusic();stopRoamingRobots();stopMindloopVideo();stopOrbisMotion();stopRobotChoices()}});

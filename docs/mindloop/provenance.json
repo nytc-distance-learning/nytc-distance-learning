@@ -1,0 +1,18 @@
+{
+  "source": "User-provided Mindloop hero reference",
+  "source_url": "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260325_120549_0cd82c36-56b3-4dd9-b190-069cfc3a623f.mp4",
+  "files": {
+    "hero.mp4": {
+      "bytes": 1889780,
+      "video": "H.264 High level 4.0, yuv420p, 1280x1006, 24fps, 12.042 seconds",
+      "audio": false,
+      "faststart": true,
+      "sha256": "7ff995f9e340c26124450ab0b31284cb6baf610e46a6bce5d6db1fcf9fa0acf6"
+    },
+    "hero-poster.webp": {
+      "bytes": 103380,
+      "frame_seconds": 2
+    }
+  },
+  "use": "Decorative hero background; NYTC robot art and existing course links retained."
+}

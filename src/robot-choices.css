@@ -1,0 +1,111 @@
+/* One saved look per guide; swapping art keeps every motion layer intact. */
+body[data-scratch-style="classic"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body[data-arduino-style="classic"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body[data-games-style="classic"] :is(.crew-games .crew-robot, .robot-games .robot-stage) {
+  background-image: url('/orbis/robots.webp');
+}
+body[data-scratch-style="pixel"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body[data-arduino-style="pixel"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body[data-games-style="pixel"] :is(.crew-games .crew-robot, .robot-games .robot-stage) {
+  background-image: url('/orbis/robots-pixel.webp');
+}
+body[data-scratch-style="orbit"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body[data-arduino-style="orbit"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body[data-games-style="orbit"] :is(.crew-games .crew-robot, .robot-games .robot-stage) {
+  background-image: url('/orbis/robots-orbit.webp');
+}
+
+#robot-chooser-host {
+  position: relative;
+  z-index: 3;
+  margin-bottom: 18px;
+}
+.robot-chooser {
+  color: #34204d;
+  background: #eee7f7f2;
+  border: 1px solid #bda0dd;
+  border-radius: 16px;
+  box-shadow: 0 8px 22px -18px #34204d66;
+}
+.robot-chooser > summary {
+  min-height: 52px;
+  padding: 12px 20px;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: 1.65;
+  cursor: pointer;
+}
+.robot-chooser > summary::marker { color: #54308c; }
+.robot-chooser > summary:focus-visible,
+.robot-choice-reset:focus-visible {
+  outline: 3px solid #54308c;
+  outline-offset: 4px;
+}
+.robot-chooser[open] > summary { border-bottom: 1px solid #cdb9e2; border-radius: 15px 15px 0 0; }
+.robot-chooser-content { padding: 18px 20px 20px; }
+.robot-chooser-copy { margin-bottom: 18px; color: #543c70; font-size: 14px; line-height: 1.55; }
+.robot-chooser-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.robot-choice-group { min-width: 0; margin: 0; padding: 0; border: 0; }
+.robot-choice-group > legend { padding: 0; margin-bottom: 12px; color: #34204d; font-size: 16px; font-weight: 750; line-height: 1.4; }
+.robot-choice-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.robot-choice-option {
+  display: flex;
+  min-width: 0;
+  min-height: 112px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 2px solid #bda0dd;
+  border-radius: 12px;
+  background: #fffaff;
+  cursor: pointer;
+}
+.robot-choice-option:has(input:checked) { border-color: #54308c; background: #e3d7f4; }
+.robot-choice-option:has(input:focus-visible) { outline: 3px solid #54308c; outline-offset: 3px; }
+.robot-choice-preview { display: block; width: 72px; height: 72px; max-width: 100%; flex-shrink: 0; background-repeat: no-repeat; background-size: 300% 100%; }
+.robot-choice-preview[data-style="classic"] { background-image: url('/orbis/robots.webp'); }
+.robot-choice-preview[data-style="pixel"] { background-image: url('/orbis/robots-pixel.webp'); }
+.robot-choice-preview[data-style="orbit"] { background-image: url('/orbis/robots-orbit.webp'); }
+.robot-choice-preview[data-role="scratch"] { background-position: 0% 50%; }
+.robot-choice-preview[data-role="arduino"] { background-position: 50% 50%; }
+.robot-choice-preview[data-role="games"] { background-position: 100% 50%; }
+.robot-choice-label { display: inline-flex; min-height: 24px; align-items: center; justify-content: center; gap: 5px; color: #34204d; font-size: 13px; font-weight: 650; line-height: 1.4; }
+.robot-choice-label input { width: 16px; height: 16px; flex-shrink: 0; margin: 0; accent-color: #54308c; cursor: pointer; }
+.robot-chooser-footer { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 18px; }
+.robot-choice-reset { min-height: 44px; padding: 9px 15px; border: 1px solid #8060b1; border-radius: 9px; background: #54308c; color: #fffaff; font: inherit; font-size: 13px; font-weight: 700; line-height: 1.4; cursor: pointer; }
+.robot-choice-status { color: #543c70; font-size: 13px; line-height: 1.5; }
+@media (hover: hover) and (pointer: fine) {
+  .robot-chooser > summary:hover { background: #e3d7f4; }
+  .robot-choice-option:hover { border-color: #8060b1; }
+  .robot-choice-reset:hover { background: #65409e; }
+}
+@media (max-width: 1000px) {
+  .robot-chooser-groups { gap: 16px; }
+  .robot-choice-options { gap: 6px; }
+  .robot-choice-option { padding-inline: 2px; }
+  .robot-choice-preview { width: 60px; height: 60px; }
+  .robot-choice-label { font-size: 12px; gap: 4px; }
+}
+@media (max-width: 800px) {
+  .robot-chooser-groups { grid-template-columns: 1fr; gap: 22px; }
+  .robot-choice-preview { width: 72px; height: 72px; }
+  .robot-choice-option { min-height: 118px; }
+  .robot-choice-label { font-size: 14px; gap: 7px; }
+}
+@media (max-width: 600px) {
+  #robot-chooser-host { padding-inline: 20px; margin-bottom: 24px; }
+  .robot-chooser > summary { padding-inline: 16px; }
+  .robot-chooser-content { padding: 16px; }
+  .robot-chooser-copy { font-size: 13px; }
+  .robot-choice-label { font-size: 13px; gap: 5px; }
+  .robot-choice-preview { width: 64px; height: 64px; }
+}
+@media (forced-colors: active) {
+  .robot-choice-option:has(input:checked) { border-color: Highlight; }
+  .robot-choice-option:has(input:focus-visible),
+  .robot-chooser > summary:focus-visible,
+  .robot-choice-reset:focus-visible { outline-color: Highlight; }
+}
