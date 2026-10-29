@@ -1,8 +1,80 @@
-/* Fixed course artwork; each roaming robot keeps its own individual style. */
-:is(.crew-scratch .crew-robot, .robot-scratch .robot-stage) {
-  background-image: url('/orbis/robots-pixel.webp');
+/* Original guides remain available alongside the nine new atlas characters. */
+body.orbis-theme :is(.crew-robot, .robot-stage), .robot-choice-art {
+  background-image: var(--robot-image, url('/orbis/robots.webp'));
+  background-repeat: no-repeat;
+  background-size: var(--robot-size, 300% 100%);
+  background-position: var(--robot-column, 0%) var(--robot-row, 50%);
 }
-:is(.crew-arduino .crew-robot, .robot-arduino .robot-stage,
-    .crew-games .crew-robot, .robot-games .robot-stage) {
-  background-image: url('/orbis/robots.webp');
+body.orbis-theme :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage) { --robot-column: 0%; }
+body.orbis-theme :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage) { --robot-column: 50%; }
+body.orbis-theme :is(.crew-games .crew-robot, .robot-games .robot-stage) { --robot-column: 100%; }
+body.orbis-theme[data-scratch-style="retro"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body.orbis-theme[data-arduino-style="retro"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body.orbis-theme[data-games-style="retro"] :is(.crew-games .crew-robot, .robot-games .robot-stage),
+.robot-choice-art[data-robot-style="retro"] { --robot-image: url('/orbis/robots-pixel.webp'); }
+body.orbis-theme[data-scratch-style="halo"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body.orbis-theme[data-arduino-style="halo"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body.orbis-theme[data-games-style="halo"] :is(.crew-games .crew-robot, .robot-games .robot-stage),
+.robot-choice-art[data-robot-style="halo"] { --robot-image: url('/orbis/robots-orbit.webp'); }
+body.orbis-theme[data-scratch-style="classic"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body.orbis-theme[data-arduino-style="classic"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body.orbis-theme[data-games-style="classic"] :is(.crew-games .crew-robot, .robot-games .robot-stage),
+.robot-choice-art[data-robot-style="classic"] { --robot-image: url('/orbis/robot-crew-distinct.webp'); --robot-size: 300% 300%; --robot-row: 0%; }
+body.orbis-theme[data-scratch-style="pixel"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body.orbis-theme[data-arduino-style="pixel"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body.orbis-theme[data-games-style="pixel"] :is(.crew-games .crew-robot, .robot-games .robot-stage),
+.robot-choice-art[data-robot-style="pixel"] { --robot-image: url('/orbis/robot-crew-distinct.webp'); --robot-size: 300% 300%; --robot-row: 50%; }
+body.orbis-theme[data-scratch-style="orbit"] :is(.crew-scratch .crew-robot, .robot-scratch .robot-stage),
+body.orbis-theme[data-arduino-style="orbit"] :is(.crew-arduino .crew-robot, .robot-arduino .robot-stage),
+body.orbis-theme[data-games-style="orbit"] :is(.crew-games .crew-robot, .robot-games .robot-stage),
+.robot-choice-art[data-robot-style="orbit"] { --robot-image: url('/orbis/robot-crew-distinct.webp'); --robot-size: 300% 300%; --robot-row: 100%; }
+.robot-choice-art[data-robot-role="scratch"] { --robot-column: 0%; }
+.robot-choice-art[data-robot-role="arduino"] { --robot-column: 50%; }
+.robot-choice-art[data-robot-role="games"] { --robot-column: 100%; }
+
+/* The expanded chooser sits below the ocean hero, in normal page flow. */
+.orbis-theme .robot-picker { position: relative; z-index: 1; width: calc(100% - 72px); max-width: 1188px; margin: 0 auto 32px; border-radius: 16px; background: #e3d7f4; color: #34204d; }
+.orbis-theme .robot-picker-inner { padding: 22px 24px 24px; }
+.robot-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.orbis-theme .robot-picker-title { margin: 0; font-size: 22px; line-height: 1.2; letter-spacing: -.02em; color: #34204d; }
+.robot-looks-reset { flex: none; min-height: 44px; padding: 9px 13px; border: 1px solid #8060b1; border-radius: 8px; background: #d8c9ed; color: #34204d; font-size: 13px; font-weight: 700; line-height: 1.3; }
+.robot-picker-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.orbis-theme .robot-choices { min-width: 0; margin: 0; padding: 0; border: 0; }
+.orbis-theme .robot-choices legend { width: 100%; margin-bottom: 8px; padding: 0; font-size: 14px; font-weight: 700; line-height: 1.4; }
+.robot-choice-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.robot-choice { position: relative; min-width: 44px; min-height: 44px; cursor: pointer; }
+.robot-choice input { position: absolute; z-index: 1; top: 7px; right: 6px; width: 15px; height: 15px; margin: 0; accent-color: #54308c; cursor: pointer; }
+.robot-choice-option { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 94px; padding: 4px 5px 8px; border: 1px solid #bda0dd; border-radius: 10px; background: #d8c9ed; color: #34204d; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+.robot-choice-art { display: block; flex: none; width: min(100%, 64px); aspect-ratio: 1; }
+.robot-choice-name { font-size: 13px; font-weight: 700; line-height: 1.3; white-space: nowrap; }
+.robot-choice input:checked + .robot-choice-option { color: #fffaff; border-color: #54308c; background: #54308c; }
+.robot-choice input:checked + .robot-choice-option .robot-choice-name { text-decoration: underline; text-underline-offset: 3px; }
+.robot-choice input:focus-visible { outline: 0; }
+.robot-choice input:focus-visible + .robot-choice-option, .orbis-theme .robot-picker .robot-looks-reset:focus-visible { outline: 3px solid #54308c; outline-offset: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .robot-choice:hover .robot-choice-option, .robot-looks-reset:hover { background: #c8b4e2; border-color: #8060b1; }
+  .robot-choice:hover input:checked + .robot-choice-option { background: #65409e; }
 }
+@media (max-width: 1000px) {
+  .orbis-theme .robot-picker { width: calc(100% - 56px); }
+  .orbis-theme .robot-picker-inner { padding-inline: 18px; }
+  .robot-picker-groups { gap: 16px; }
+  .robot-choice-options { gap: 6px; }
+  .robot-choice-art { width: min(100%, 58px); }
+  .robot-choice-name { font-size: 12px; }
+}
+@media (max-width: 800px) {
+  .robot-picker-groups { grid-template-columns: 1fr; gap: 18px; }
+  .robot-choice-art { width: min(100%, 68px); }
+  .robot-choice-option { min-height: 100px; }
+}
+@media (max-width: 600px) {
+  .orbis-theme .robot-picker { width: calc(100% - 40px); margin-bottom: 24px; }
+  .orbis-theme .robot-picker-inner { padding: 18px 16px 20px; }
+  .orbis-theme .robot-picker-title { font-size: 20px; }
+  .robot-picker-heading { gap: 10px; }
+  .robot-looks-reset { padding-inline: 10px; font-size: 12px; }
+  .robot-choice-art { width: min(100%, 58px); }
+  .robot-choice-option { min-height: 90px; }
+}
+@media (prefers-reduced-motion: reduce) { .robot-choice-option { transition: none; } }

@@ -54,14 +54,14 @@ body.robots-roaming > .roam-motion-control { display: inline-flex; }
 .robot-roam-facing, .robot-roam-art { display: block; width: 100%; height: 100%; }
 .robot-roam-facing { transform-origin: 50% 65%; }
 .robot-roam-art {
-  background: url('/orbis/robots.webp') 0% 50% / 300% 100% no-repeat;
+  background: url('/orbis/robot-crew-distinct.webp') var(--roam-column,0%) var(--roam-row,0%) / 300% 300% no-repeat;
   transform-origin: 50% 75%;
 }
-.robot-roam-style-classic .robot-roam-art { background-image: url('/orbis/robots.webp'); }
-.robot-roam-style-pixel .robot-roam-art { background-image: url('/orbis/robots-pixel.webp'); }
-.robot-roam-style-orbit .robot-roam-art { background-image: url('/orbis/robots-orbit.webp'); }
-.robot-roam-arduino .robot-roam-art { background-position: 50% 50%; }
-.robot-roam-games .robot-roam-art { background-position: 100% 50%; }
+.robot-roam-style-classic { --roam-row: 0%; }
+.robot-roam-style-pixel { --roam-row: 50%; }
+.robot-roam-style-orbit { --roam-row: 100%; }
+.robot-roam-arduino { --roam-column: 50%; }
+.robot-roam-games { --roam-column: 100%; }
 .is-walking .robot-roam-art { animation: robot-roam-step .44s linear infinite; }
 .robot-roam-arduino .robot-roam-art { animation-delay: -.14s; }
 .robot-roam-games .robot-roam-art { animation-delay: -.28s; }

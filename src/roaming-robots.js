@@ -9,6 +9,7 @@ export function initRoamingRobots() {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const ambientButton = document.querySelector('#ambient-motion-toggle');
+  const picker = document.querySelector('.robot-picker');
   const sources = [...document.querySelectorAll('.crew-robot')].slice(0, 3);
   if (sources.length !== 3 || !ambientButton) return () => {};
 
@@ -23,6 +24,7 @@ export function initRoamingRobots() {
   let pointerSample;
   let pointerAt = 0;
   let pointerRobot = Math.floor(Math.random() * kinds.length * styles.length);
+  let pickerMaskFrame = 0;
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const transform = point => `translate3d(${point.x.toFixed(2)}px, ${point.y.toFixed(2)}px, 0)`;
@@ -61,6 +63,30 @@ export function initRoamingRobots() {
       top: top + 6,
       bottom: Math.max(top + 6, height - bottom - size - 6),
     };
+  }
+
+  // Keep the crew visible everywhere except behind the selection panel itself.
+  function updatePickerMask() {
+    if (pickerMaskFrame) cancelAnimationFrame(pickerMaskFrame);
+    pickerMaskFrame = 0;
+    if (!layer || disposed) return;
+    const panel = picker?.getBoundingClientRect();
+    const viewport = layer.getBoundingClientRect();
+    if (!panel || panel.width <= 0 || panel.height <= 0 || panel.bottom <= viewport.top || panel.top >= viewport.bottom || panel.right <= viewport.left || panel.left >= viewport.right) {
+      layer.style.removeProperty('clip-path');
+      return;
+    }
+    const left = clamp(panel.left - viewport.left, 0, viewport.width).toFixed(2);
+    const right = clamp(panel.right - viewport.left, 0, viewport.width).toFixed(2);
+    const top = clamp(panel.top - viewport.top, 0, viewport.height).toFixed(2);
+    const bottom = clamp(panel.bottom - viewport.top, 0, viewport.height).toFixed(2);
+    const width = viewport.width.toFixed(2);
+    const height = viewport.height.toFixed(2);
+    layer.style.clipPath = `path(evenodd, "M0 0H${width}V${height}H0Z M${left} ${top}H${right}V${bottom}H${left}Z")`;
+  }
+
+  function schedulePickerMask() {
+    if (layer && !disposed && !pickerMaskFrame) pickerMaskFrame = requestAnimationFrame(updatePickerMask);
   }
 
   function stop(robot) {
@@ -203,9 +229,12 @@ export function initRoamingRobots() {
     // Variant offsets and a fallback grid separate guides even when anchors are offscreen.
     spreadPositions();
     body.classList.add('robots-roaming');
+    updatePickerMask();
   }
 
   function unmount() {
+    if (pickerMaskFrame) cancelAnimationFrame(pickerMaskFrame);
+    pickerMaskFrame = 0;
     robots.forEach(stop);
     robots = [];
     layer?.remove();
@@ -261,6 +290,7 @@ export function initRoamingRobots() {
       robot.mover.classList.remove('is-walking');
     });
     spreadPositions();
+    updatePickerMask();
     pointerSample = undefined;
     if (!paused) robots.forEach(robot => travel(robot));
   }
@@ -284,7 +314,9 @@ export function initRoamingRobots() {
   reduced.addEventListener('change', syncState);
   document.addEventListener('visibilitychange', syncState);
   window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('scroll', schedulePickerMask, { passive: true });
   window.visualViewport?.addEventListener('resize', resize, { passive: true });
+  window.visualViewport?.addEventListener('scroll', schedulePickerMask, { passive: true });
   document.addEventListener('pointermove', pointerMove, { passive: true });
 
   function dispose() {
@@ -294,7 +326,9 @@ export function initRoamingRobots() {
     reduced.removeEventListener('change', syncState);
     document.removeEventListener('visibilitychange', syncState);
     window.removeEventListener('resize', resize);
+    window.removeEventListener('scroll', schedulePickerMask);
     window.visualViewport?.removeEventListener('resize', resize);
+    window.visualViewport?.removeEventListener('scroll', schedulePickerMask);
     document.removeEventListener('pointermove', pointerMove);
     unmount();
     if (disposeCurrent === dispose) disposeCurrent = undefined;
