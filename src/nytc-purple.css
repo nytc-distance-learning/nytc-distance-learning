@@ -97,9 +97,6 @@ body.mindloop-background {
 .mindloop-background :is(a,button,canvas):focus-visible{outline:3px solid #f1e6ff;outline-offset:5px}
 .mindloop-background .orbis-heading-art :is(.crew-member strong,.crew-enter){color:#34204d}
 .mindloop-background .orbis-intro .space-coordinate{color:#34204d;background:#ead9fff0;padding:4px 10px;border-radius:5px;text-shadow:none}
-.robot-chooser-opener{display:inline-flex;align-items:center;min-height:44px;margin:15px 18px 0 0;padding:10px 15px;border:1px solid #8060b1;border-radius:9px;background:#ead9ff;color:#34204d;font:inherit;font-size:13px;font-weight:700;line-height:1.4;cursor:pointer}
-.robot-chooser-opener:hover{background:#fffaff}
-.robot-chooser{color-scheme:light}
 .mindloop-background.robots-roaming .crew-float{width:0;height:0;overflow:hidden;visibility:hidden;animation:none}
 .mindloop-background.robots-roaming .hero-crew{gap:10px}
 .mindloop-background.robots-roaming .crew-member{min-height:96px;justify-content:center;padding:12px 8px;border-radius:14px;background:#ead9ffdb}

@@ -4,7 +4,6 @@ import {initRoamingRobots} from './roaming-robots.js';
 import './roaming-robots.css';
 import {initRoboticMusic} from './robotic-music.js';
 import './robotic-music.css';
-import {initRobotChoices} from './robot-choices.js';
 import './robot-choices.css';
 import {createIcons,ArrowUpRight,ArrowRight,Pause,Play,Move,RotateCcw,Scan,Sparkles,Flag,Repeat2,Zap,FlagTriangleRight,Blocks,Video,NotebookPen,Cpu,CodeXml,Gamepad2,Map as MapIcon,ClipboardCheck,Lightbulb,CircleCheck,Languages,MousePointerClick,MessagesSquare,BookOpenCheck} from 'lucide';
 const iconSet={ArrowUpRight,ArrowRight,Pause,Play,Move,RotateCcw,Scan,Sparkles,Flag,Repeat2,Zap,FlagTriangleRight,Blocks,Video,NotebookPen,Cpu,CodeXml,Gamepad2,Map:MapIcon,ClipboardCheck,Lightbulb,CircleCheck,Languages,MousePointerClick,MessagesSquare,BookOpenCheck};
@@ -28,9 +27,8 @@ const revealed=document.querySelectorAll('.section-heading,.course-card,.learnin
 // Keep the preview alive when Back restores this page from the browser cache.
 window.addEventListener('pagehide',event=>{if(!event.persisted)world?.dispose()});
 
-const stopRobotChoices=initRobotChoices();
 const stopOrbisMotion=initOrbisMotion();
 const stopMindloopVideo=initMindloopVideo();
 const stopRoamingRobots=initRoamingRobots();
 const stopRoboticMusic=initRoboticMusic();
-window.addEventListener('pagehide',event=>{if(!event.persisted){stopRoboticMusic();stopRoamingRobots();stopMindloopVideo();stopOrbisMotion();stopRobotChoices()}});
+window.addEventListener('pagehide',event=>{if(!event.persisted){stopRoboticMusic();stopRoamingRobots();stopMindloopVideo();stopOrbisMotion()}});
